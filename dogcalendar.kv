@@ -1,0 +1,48 @@
+WindowManager:
+    StartScreen:
+    CalendarScreen:
+
+<StartScreen>
+    name: "StartMenu"
+
+    GridLayout:
+        cols: 1
+        padding: 30
+        spacing: 60
+
+
+        Label:
+            text: "Welcome to Pet Friend"
+            font_size: 40
+        Button:
+            text: "Continue"
+            size_hint: 0.3, 0.3
+            pos_hint: {"x":0, "top":1}
+            font_size: 20
+            bold: True
+            on_release:
+                app.root.current = "Calendar"
+                root.manager.transition.direction = "left"
+
+<CalendarScreen>
+    name: "Calendar"
+
+    GridLayout:
+        cols: 1
+        padding: 30
+        spacing: 60
+        Label:
+            text: "second screen"
+            font_size: 20
+        Button:
+            text: "Back"
+            size_hint: 0.3, 0.3
+            pos_hint: {"x":0, "top":1}
+            font_size: 20
+            bold: True
+            on_release:
+                app.root.current = "StartMenu"
+                root.manager.transition.direction = "right"
+
+
+
