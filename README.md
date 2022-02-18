@@ -20,4 +20,4 @@ Gebruikte applicaties:
 * Arduino Nano 33 IoT
 * LTE-M Antenne
 * Batterij 3.7 V - 2000 mAh
-
+* MPU-6050 accelerometer 
