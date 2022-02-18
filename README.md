@@ -1,6 +1,6 @@
 # Simulate 4 Dog Calendar
 
-## table of contents
+## Table of contents
 * [Information](#information)
 * [Software and applications](#software-and-applications)
 * [Hardware](#hardware)
