@@ -17,7 +17,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
 from kivy.lang import Builder
-
+import connectdb
 #          AUTHOR INFORMATION         #
 
 #        _____
@@ -39,12 +39,21 @@ class WindowManager(ScreenManager):
     pass
 
 
-class CalendarScreen(Screen):
+class ConfirmsScreen(Screen):
     pass
+
+
+class PlanningScreen(Screen, GridLayout):
+    def verifyinfo(self):
+        km = self.ids.km.text
+        wandelingen = self.ids.wandeling.text
+        print(f"kilometers:, {km} Wandelingen: {wandelingen}")
+        connectdb.getkm(km)
 
 
 class StartScreen(Screen):
     pass
+
 
 kv = Builder.load_file('dogcalendar.kv')
 
