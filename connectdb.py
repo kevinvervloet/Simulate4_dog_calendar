@@ -27,7 +27,7 @@ __status__ = "Development"
 
 #              MAIN CODE              #
 def getkm(kmInsert):
-    cd = credentials.Certificate("F")
+    cd = credentials.Certificate("")
     firebase_admin.initialize_app(cd, {"databaseURL": ""})
 
     ref = db.reference("/")
