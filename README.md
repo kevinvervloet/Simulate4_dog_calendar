@@ -6,14 +6,18 @@
 * [Hardware](#hardware)
 
 ## Information
-This project was made as a final project for the Karel de Grote Hogeschool during the course Internet of Things (IoT)
+This project was made as a final project for the Karel de Grote Hogeschool during the course Internet of Things (IoT).
+
+This program allows a user to find times when it won't rain so they can plan walks with their dogs ... (work in process)
 
 ## Software and applications
-Gebruikte applicaties:
+Applications:
 * Pycharm  - > Development environment for python
 * Arduino IDE - > Software to program arduino devices & hardware
 * Kivy - > Frameork to build applications in python
-
+API's
+* OpenweatherAPI (https://openweathermap.org/api)
+* Google calendar API (https://developers.google.com/calendar/api)
 
 ## Hardware
 * TFT Display 160x162
