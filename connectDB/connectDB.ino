@@ -7,10 +7,10 @@
 #include "Firebase_Arduino_WiFiNINA.h"
 
 // configure wifi & firebase settings
-#define DATABASE_URL "https://pet-friend-29364-default-rtdb.europe-west1.firebasedatabase.app/" //pet-friend-29364-default-rtdb.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
-#define DATABASE_SECRET "Oe87LHxIL5Ep9R0lTDPqFm3xP80jRtDYsqAZnnlH"
-#define WIFI_SSID "WiFi-5.0-133B"               //IoT
-#define WIFI_PASSWORD "24652CC8A4"          //KdGIoT17!"
+#define DATABASE_URL "" /
+#define DATABASE_SECRET ""
+#define WIFI_SSID ""              
+#define WIFI_PASSWORD ""       
 
 //Define Firebase data object
 FirebaseData fbdo;
