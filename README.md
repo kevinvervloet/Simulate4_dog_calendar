@@ -11,11 +11,12 @@ This project was made as a final project for the Karel de Grote Hogeschool durin
 This program allows a user to find times when it won't rain so they can plan walks with their dogs ... (work in process)
 
 ## Software and applications
-Applications:
+### Applications:
 * Pycharm  - > Development environment for python
 * Arduino IDE - > Software to program arduino devices & hardware
 * Kivy - > Frameork to build applications in python
-API's
+
+### API's:
 * OpenweatherAPI (https://openweathermap.org/api)
 * Google calendar API (https://developers.google.com/calendar/api)
 
