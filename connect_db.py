@@ -26,12 +26,14 @@ from configurations import dbconfig, dbcredentials
 
 #              MAIN CODE              #
 def getkm(kmInsert):
-    cd = credentials.Certificate(dbcredentials())
-    firebase_admin.initialize_app(cd, {"databaseURL": dbconfig()})
+    try:
+        cd = credentials.Certificate(dbcredentials())
+        firebase_admin.initialize_app(cd, {"databaseURL": dbconfig()})
+    except:
+        pass
 
     ref = db.reference("/")
     km = ref.get()
     for key, value in km.items():
         a = kmInsert
         ref.child(key).update({"km": a})
-

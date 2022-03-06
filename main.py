@@ -3,6 +3,7 @@
 Python Application written with the kivy framework
 Kivy documentation: https://kivy.org/
 Working with WindowManager: https://kivycoder.com/multiple-windows-with-screenmanager-python-kivy-gui-tutorial-31/ - John Elder
+Kivy Tutorials: https://www.youtube.com/watch?v=bMHK6NDVlCM&list=PLzMcBGfZo4-kSJVMyYeOQ8CXJ3z1k7gHn - Tech With Tim
 """
 #          AUTHOR INFORMATION         #
 
@@ -17,7 +18,6 @@ __author__ = "Kevin Vervloet"
 __email__ = "kevin.vervloet@student.kdg.be"
 __Version__ = "(Code version)"
 __status__ = "Development"
-
 
 #               IMPORTS               #
 import kivy
@@ -34,6 +34,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
 from kivy.lang import Builder
+import get_calendar
 import connect_db
 
 
@@ -42,28 +43,61 @@ class WindowManager(ScreenManager):
     pass
 
 
+class decidewalk(Screen):
+    def verifyhour(self):
+        hour = self.ids.Hours.text
+        min = self.ids.Minutes.text
+        sec = self.ids.Seconds.text
+
+        if hour > "24":
+            popup = Popup(title='Only 24 hours!', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        elif hour == "":
+            popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        elif min == "":
+            popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        elif sec == "":
+            popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        else:
+            plannedhour = f'{hour}:{min}:{sec}'
+            get_calendar.main(plannedhour)
+
+
+class choicemenu(Screen):
+    pass
+
+
 class ConfirmsScreen(Screen):
     pass
 
 
 class PlanningScreen(Screen, GridLayout):
-    def verifyinfo(self):   # verify if the values are correct
+    def verifyinfo(self):  # verify if the values are correct
         km = self.ids.km.text
         wandelingen = self.ids.wandeling.text
         if km == "":
-            popup = Popup(title='The ''km'' field is empty!', size_hint=(.5, .1), background_color=[0,0,0,.6])
+            popup = Popup(title='The ''km'' field is empty!', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif wandelingen == "":
-            popup = Popup(title='The ''walks'' field is empty', size_hint=(.5, .1), background_color=[0,0,0,.6])
+            popup = Popup(title='The ''walks'' field is empty', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif not km.isdigit():
-            popup = Popup(title='Not a valid value in the ''km'' field!', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup = Popup(title='Not a valid value in the ''km'' field!', size_hint=(.5, .1),
+                          background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif not wandelingen.isdigit():
-            popup = Popup(title='Not a valid value in the ''walks'' field!', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup = Popup(title='Not a valid value in the ''walks'' field!', size_hint=(.5, .1),
+                          background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif km == "0":
@@ -80,7 +114,7 @@ class PlanningScreen(Screen, GridLayout):
             changescreen(self)
 
 
-def changescreen(self): # Change screen if values are inputted correctly
+def changescreen(self):  # Change screen if values are inputted correctly
     if self.manager.current == 'planner':
         self.manager.current = 'confirm'
 

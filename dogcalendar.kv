@@ -2,6 +2,8 @@ WindowManager:
     StartScreen:
     PlanningScreen:
     ConfirmsScreen:
+    choicemenu:
+    decidewalk:
 
 <RoundedButton@Button>
     background_color: (0,0,0,0)
@@ -23,12 +25,10 @@ WindowManager:
         Rectangle:
             size: self.size
             pos: self.pos
-
     GridLayout:
         cols: 1
         padding: 30
         spacing: 60
-
 
         Label:
             bold: True
@@ -37,13 +37,122 @@ WindowManager:
         RoundedButton:
             text: "Continue"
             color: 0.48, 0.64, 0.87, 1
-            size_hint: 0.4, 0.20
+            size_hint: 0.3, 0.20
             pos_hint: {"center_x": 1}
             font_size: 20
             bold: True
             on_release:
-                app.root.current = "planner"
+                app.root.current = "choice"
                 root.manager.transition.direction = "left"
+
+<choicemenu>
+    name: "choice"
+    canvas:
+        Color:
+            rgba: 0.48, 0.64, 0.87, 0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        text: "How would you like to plan your walk"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
+        font_size: 20
+    Button:
+        text: "Back"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0,}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "Menu"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text: "Plan your own walk"
+        size_hint: 0.5, 0.05
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "decide"
+            root.manager.transition.direction = "left"
+    Button:
+        text: "Let the app decide!"
+        size_hint: 0.5, 0.05
+        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "planner"
+            root.manager.transition.direction = "left"
+
+<decidewalk>
+    name: "decide"
+    canvas:
+        Color:
+            rgba: 0.48, 0.64, 0.87, 0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        text: "On what hour do you want to walk?"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
+        font_size: 20
+    Label:
+        text: ":"
+        pos_hint: {'center_x': 0.4, 'center_y': 0.40}
+        font_size: 25
+    Label:
+        text: ":"
+        pos_hint: {'center_x': 0.59, 'center_y': 0.40}
+        font_size: 25
+    Label:
+        text: "Hours"
+        pos_hint: {'center_x': 0.278, 'center_y': 0.45}
+        font_size: 15
+    Label:
+        text: "Min"
+        pos_hint: {'center_x': 0.46, 'center_y': 0.45}
+        font_size: 15
+    Label:
+        text: "Sec"
+        pos_hint: {'center_x': 0.65, 'center_y': 0.45}
+        font_size: 15
+    TextInput:
+        id: Hours
+        pos_hint: {'center_x': 0.3, 'center_y': 0.40}
+        size_hint: 0.15, 0.05
+        hint_text: 'Hours'
+        multiline: False
+    TextInput:
+        id: Minutes
+        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
+        size_hint: 0.15, 0.05
+        hint_text: 'Mins'
+        multiline: False
+    TextInput:
+        id: Seconds
+        pos_hint: {'center_x': 0.69, 'center_y': 0.40}
+        size_hint: 0.15, 0.05
+        hint_text: 'Sec'
+        multiline: False
+    Button:
+        text: "Back"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "choice"
+            root.manager.transition.direction = "right"
+    Button:
+        text: "Submit"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0.5}
+        font_size: 20
+        bold: True
+        on_press: root.verifyhour()
+
 
 <PlanningScreen>
     name: "planner"
@@ -84,7 +193,7 @@ WindowManager:
         font_size: 20
         bold: True
         on_release:
-            app.root.current = "Menu"
+            app.root.current = "choice"
             root.manager.transition.direction = "right"
 
     Button:
@@ -94,9 +203,7 @@ WindowManager:
         font_size: 20
         bold: True
         on_press: root.verifyinfo()
-        #on_release:
-        #   app.root.current = "confirm"
-        #   root.manager.transition.direction = "left"
+
 
 
 
