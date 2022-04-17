@@ -4,6 +4,7 @@
 * [Information](#information)
 * [Software and applications](#software-and-applications)
 * [Hardware](#hardware)
+* [Tutorial](#tutorial)
 
 ## Information
 This project was made as a final project for the Karel de Grote Hogeschool during the course Internet of Things (IoT).
@@ -26,3 +27,6 @@ This program allows a user to find times when it won't rain so they can plan wal
 * LTE-M Antenne
 * Batterij 3.7 V - 2000 mAh
 * MPU-6050 accelerometer 
+
+## Tutorial
+Tutorial will be added when the project is completed.
