@@ -4,6 +4,7 @@ WindowManager:
     ConfirmsScreen:
     choicemenu:
     decidewalk:
+    tutorial:
 
 <RoundedButton@Button>
     background_color: (0,0,0,0)
@@ -14,7 +15,7 @@ WindowManager:
         RoundedRectangle:
             size: self.size
             pos: self.pos
-            radius: [40]
+            radius: [20]
             
 <StartScreen>
     name: "Menu"
@@ -25,25 +26,44 @@ WindowManager:
         Rectangle:
             size: self.size
             pos: self.pos
-    GridLayout:
-        cols: 1
-        padding: 30
-        spacing: 60
+    Label:
+        bold: True
+        text: "Dog Calendar"
+        font_size: 25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+    Label:
+        bold: True
+        text: "Made By Kevin Vervloet"
+        font_size: 15
+        pos_hint: {'center_x': 0.5, 'center_y': 0.70}
+    Image:
+        source:'images/dog.png'
+        allow_stretch: True
+        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+        size_hint_x: 0.35
+        size_hint_y: 0.25
+    Button:
+        on_release:
+            app.root.current = "tutorial"
+            root.manager.transition.direction = "down"
+        background_disabled_normal: str(True)
+        size_hint_y: 0.15
+        size_hint_x: 0.25
+        pos_hint: {'center_x': 0.1, 'center_y': 0.90}
+        background_normal: 'images/info.png'
 
-        Label:
-            bold: True
-            text: "Welcome to Pet Friend"
-            font_size: 25
-        RoundedButton:
-            text: "Continue"
-            color: 0.48, 0.64, 0.87, 1
-            size_hint: 0.3, 0.20
-            pos_hint: {"center_x": 1}
-            font_size: 20
-            bold: True
-            on_release:
-                app.root.current = "choice"
-                root.manager.transition.direction = "left"
+
+
+    RoundedButton:
+        text: "Continue"
+        color: 0.48, 0.64, 0.87, 1
+        size_hint: 0.8, 0.10
+        pos_hint: {'center_x': 0.5, 'center_y': 0.08}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "choice"
+            root.manager.transition.direction = "left"
 
 <choicemenu>
     name: "choice"
@@ -152,6 +172,8 @@ WindowManager:
         font_size: 20
         bold: True
         on_press: root.verifyhour()
+        on_release:
+            root.manager.transition.direction = "left"
 
 
 <PlanningScreen>
@@ -204,9 +226,6 @@ WindowManager:
         bold: True
         on_press: root.verifyinfo()
 
-
-
-
 <ConfirmsScreen>
     name: "confirm"
     canvas:
@@ -232,3 +251,20 @@ WindowManager:
 
 
 
+<tutorial>
+    name: "tutorial"
+    canvas:
+        Color:
+            rgba: 0.48, 0.64, 0.87, 0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Button:
+        text: "Home"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0.25, "y":0.10}
+        font_size: 20
+        bold: True
+        on_release:
+            app.root.current = "Menu"
+            root.manager.transition.direction = "up"

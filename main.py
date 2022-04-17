@@ -19,55 +19,83 @@ __email__ = "kevin.vervloet@student.kdg.be"
 __Version__ = "(Code version)"
 __status__ = "Development"
 
-#               IMPORTS               #
-import kivy
-from kivy.core.window import Window
 from kivy.app import App
-from kivy.uix.label import Label
+#               IMPORTS               #
+from kivy.core.window import Window
+from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
-from kivy.uix.widget import Widget
-from kivy.uix.image import Image
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivymd.app import MDApp
-from kivy.lang import Builder
-import get_calendar
-import connect_db
 
+import connect_db
+import get_weather
+
+"""
+TODO MAIN
+- create a callback to the app when the code has run succesfully
+- Optimse the code
+"""
 
 #              MAIN CODE              #
 class WindowManager(ScreenManager):
     pass
 
+class tutorial(Screen):
+    pass
 
 class decidewalk(Screen):
     def verifyhour(self):
         hour = self.ids.Hours.text
-        min = self.ids.Minutes.text
+        mins = self.ids.Minutes.text
         sec = self.ids.Seconds.text
 
+        # check hour fields
         if hour > "24":
-            popup = Popup(title='Only 24 hours!', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup = Popup(title='Error in "Hours" field: Make sure your format is correct 00:00:00', size_hint=(.5, .1),
+                          background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif hour == "":
             popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
             popup.open()
             pass
-        elif min == "":
+        elif not hour.isdigit():
+            popup = Popup(title='Invalid value in "Hours" field, please try again', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+
+        # check min fields
+        elif mins > "59":
+            popup = Popup(title='Error in "Min" field: Make sure your format is correct 00:00:00', size_hint=(.5, .1),
+                          background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        elif mins == "":
             popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        elif not mins.isdigit():
+            popup = Popup(title='Invalid value in "Min" field, please try again', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
+        # check sec fields
+        elif sec > "59":
+            popup = Popup(title='Error in "Sec" field: Make sure your format is correct 00:00:00', size_hint=(.5, .1),
+                          background_color=[0, 0, 0, .6])
             popup.open()
             pass
         elif sec == "":
             popup = Popup(title='empty field(s)', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
             popup.open()
             pass
+        elif not sec.isdigit():
+            popup = Popup(title='Invalid value in "Sec" field, please try again', size_hint=(.5, .1), background_color=[0, 0, 0, .6])
+            popup.open()
+            pass
         else:
-            plannedhour = f'{hour}:{min}:{sec}'
-            get_calendar.main(plannedhour)
+            plannedhour = f'{hour}:{mins}:{sec}'
+            get_weather.weatherhourly(plannedhour)  # Find the weather for that hour
+            confirmscreen(self)
 
 
 class choicemenu(Screen):
@@ -110,12 +138,18 @@ class PlanningScreen(Screen, GridLayout):
             popup.open()
         else:
             print(f"kilometers: {km} Wandelingen: {wandelingen}")
-            connect_db.getkm(km)
+            connect_db.insertkilometers(km)
+            get_weather.getweatherrandomly(wandelingen)
             changescreen(self)
 
 
 def changescreen(self):  # Change screen if values are inputted correctly
     if self.manager.current == 'planner':
+        self.manager.current = 'confirm'
+
+
+def confirmscreen(self):
+    if self.manager.current == 'decide':
         self.manager.current = 'confirm'
 
 

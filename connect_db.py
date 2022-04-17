@@ -25,11 +25,11 @@ from configurations import dbconfig, dbcredentials
 
 
 #              MAIN CODE              #
-def getkm(kmInsert):
+def insertkilometers(kmInsert):
     try:
         cd = credentials.Certificate(dbcredentials())
         firebase_admin.initialize_app(cd, {"databaseURL": dbconfig()})
-    except:
+    except Exception:
         pass
 
     ref = db.reference("/")

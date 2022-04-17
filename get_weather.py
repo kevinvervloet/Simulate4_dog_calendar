@@ -17,17 +17,22 @@ __author__ = "Kevin Vervloet"
 __email__ = "kevin.vervloet@student.kdg.be"
 __Version__ = "(Code version)"
 __status__ = "Development"
-
+"""
+TODO
+- optimise code (remove test prints)
+"""
 #               IMPORTS               #
 import requests
 from geopy.geocoders import Nominatim
 from pprint import pprint
 from configurations import weatherAPI
-from datetime import datetime
+import datetime
+import get_calendar
+import random
 
 
 #              MAIN CODE              #
-def getweather():
+def getweatherrandomly(wandelingen):  # function for option 2
     # Get longitude & langitude from location
 
     loc = Nominatim(user_agent="GetLoc")
@@ -43,23 +48,81 @@ def getweather():
                                                                                            "minutely,daily," \
                                                                                            "alert" + "&units=metric "
     weather_data = requests.get(Final_url).json()
-    print("\nHourly data for " + city_name + ":\n")
+    lst = []
+    lst2 = []
+    today = datetime.date.today()
+    tomorrow = today + datetime.timedelta(days=1)
 
     for data in weather_data["hourly"]:
-        unix = data["dt"]                                      # get unix time from the json
-        datetime_obj = datetime.utcfromtimestamp(int(unix))    # convert unix to a datetime
-        time_now = str(datetime.now())[11:19]                  # get current time
-        weather = data["weather"][0]["main"]                   # filter on weather type in json
+        unix = data["dt"]  # get unix time from the json
+        datetime_obj = datetime.datetime.utcfromtimestamp(int(unix))  # convert unix to a datetime
+        times_from_api = datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
+        time_now = str(datetime.datetime.now())  # get current time
+        weather = data["weather"][0]["main"]  # filter on weather type in json
 
-        if data["weather"][0]["main"] == "Rain":               # check for rain
+        if time_now <= times_from_api:  # don't include times that happend in the past
+            if times_from_api <= str(tomorrow):
+                print(weather + " " + times_from_api)
+                lst.append(weather)
+                lst2.append(times_from_api)
+
+    lenght_time_list = len(lst2)  # get the lenght of the list
+    for i in range(int(wandelingen)):
+        random_planning = random.randrange(1, lenght_time_list)  # random number
+        select_weather = lst[random_planning]  # select a random time
+        plannedhour = lst2[random_planning]
+        if select_weather == "Rain":
             pass
+        print(select_weather, plannedhour)
+        plannedhour = plannedhour[11:29]
+        text = f'Weather for {plannedhour} - {select_weather}. Perfect time for a walk with your dog - Sent from Dog ' \
+               f'Calendar App! '
+        get_calendar.getcalendar(plannedhour, text)
+        # send to calendar ... ->
 
-        if datetime_obj.strftime("%H:%M:%S") <= str(time_now):
-            pass
-        else:
 
-            print(datetime_obj.strftime("%H:%M:%S"), weather)
+def weatherhourly(plannedhour):  # function for option 2
+
+    hour_format = "%H:%M:%S"  # format datetime in hour/min/sec
+    dt_hour = datetime.datetime.strptime(plannedhour, hour_format)
+    a = (dt_hour.replace(second=0, microsecond=0,
+                         minute=0, hour=dt_hour.hour) + datetime.timedelta(
+        hours=dt_hour.minute // 30))  # round the time
+    walk = a.strftime('%H:%M:%S')  # remove day, year & month
+
+    # Get longitude & langitude from location
+
+    loc = Nominatim(user_agent="GetLoc")
+    getLoc = loc.geocode("Antwerp")
+    latitude = str(getLoc.latitude)
+    longitude = str(getLoc.longitude)
+    city_name = "Antwerp"
+
+    # API
+    API_key = weatherAPI()
+    base_url = "http://api.openweathermap.org/data/2.5/onecall?"
+    Final_url = base_url + "lat=" + latitude + "&lon=" + longitude + "&appid=" + API_key + "&exclude=current," \
+                                                                                           "minutely,daily," \
+                                                                                           "alert" + "&units=metric "
+
+    weather_data = requests.get(Final_url).json()
+
+    for data in weather_data["hourly"]:
+        unix = data["dt"]  # get unix time from the json
+        datetime_obj = datetime.datetime.utcfromtimestamp(int(unix))  # convert unix to a datetime
+        times_from_api = datetime_obj.strftime("%H:%M:%S")
+        weather = data["weather"][0]["main"]  # filter on weather type in json
+
+        if times_from_api == str(walk):
+            if weather == "Rain":  # check for rain
+                text = f'Weather for {plannedhour} - {weather}. Be sure to bring a raincoat!'
+                get_calendar.getcalendar(plannedhour, text)
+                break
+            else:
+                text = f'Weather for {plannedhour} - {weather}. Perfect time for a walk with your doggie!'
+                get_calendar.getcalendar(plannedhour, text)
+                break
 
 
 if __name__ == '__main__':  # run tests if called from command-line
-    getweather()
+    getweatherrandomly()
