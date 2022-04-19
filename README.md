@@ -14,7 +14,7 @@ This project was made as a final project for the Karel de Grote Hogeschool durin
 * Pycharm  - > Development environment for python
 * Arduino IDE - > Software to program arduino devices & hardware
 * Kivy - > Frameork to build applications in python
-
+* Firebase - > Database 
 
 ## Hardware
 * I2C 16x2 Arduino LCD Display module
