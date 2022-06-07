@@ -19,15 +19,15 @@ __status__ = "Development"
 
 #              MAIN CODE              #
 def dbconfig():
-    databaseURL = "https://pet-friend-29364-default-rtdb.europe-west1.firebasedatabase.app/"
+    databaseURL = "Database URL goes here"
     return databaseURL
 
 
 def dbcredentials():
-    dbcred = "Firebase/pet-friend-29364-firebase-adminsdk-c272t-7304f5b190.json"
+    dbcred = "Firebase credentials go here"
     return dbcred
 
 
 def weatherAPI():
-    API_KEY = "5bb76bcc0cada30df4bfc4e768a6ec49"
+    API_KEY = "API KEY"
     return API_KEY
