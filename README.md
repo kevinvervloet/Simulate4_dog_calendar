@@ -44,5 +44,4 @@ When you click one either one of these buttons the app will ask you to input som
 ![image](https://user-images.githubusercontent.com/72076173/163708228-4b39bc3d-f008-4ccf-9593-732ac78a21df.png)
 
 
-## For developers
 
