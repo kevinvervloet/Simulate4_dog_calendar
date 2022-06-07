@@ -19,8 +19,7 @@ __status__ = "Development"
 
 #               IMPORTS               #
 import firebase_admin
-from firebase_admin import credentials, firestore, db
-import json
+from firebase_admin import credentials, db
 from configurations import dbconfig, dbcredentials
 
 

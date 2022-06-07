@@ -5,6 +5,7 @@ WindowManager:
     choicemenu:
     decidewalk:
     tutorial:
+    UserFeedback:
 
 <RoundedButton@Button>
     background_color: (0,0,0,0)
@@ -22,10 +23,16 @@ WindowManager:
 
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
+    Label:
+        id: confirm_login
+        bold: True
+        text: ""
+        font_size: 25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.30}
     Label:
         bold: True
         text: "Dog Calendar"
@@ -46,17 +53,40 @@ WindowManager:
         on_release:
             app.root.current = "tutorial"
             root.manager.transition.direction = "down"
+            root.remove_text()
         background_disabled_normal: str(True)
-        size_hint_y: 0.15
-        size_hint_x: 0.25
-        pos_hint: {'center_x': 0.1, 'center_y': 0.90}
-        background_normal: 'images/info.png'
+        size_hint: 0.1,0.06
+        pos_hint: {'center_x': 0.1, 'center_y': 0.94}
+        background_normal: 'images/Naamloos.png'
+        allow_stretch: True
 
+    Button:
+        on_release:
+            root.gettoken()
+        text: "Login"
+        color: 0.20, 0.61, 0.40, 0.9
+        background_normal: ''
+        background_color: 1, 1, 1, 1
+        size_hint: 0.2, 0.04
+        pos_hint: {'center_x': 0.85, 'center_y': 0.94}
+        font_size: 20
+        bold: True
 
+    Button:
+        on_release:
+            root.logout()
+        text: "logout"
+        color: 0.20, 0.61, 0.40, 0.9
+        background_normal: ''
+        background_color: 1, 1, 1, 1
+        size_hint: 0.2, 0.04
+        pos_hint: {'center_x': 0.85, 'center_y': 0.88}
+        font_size: 20
+        bold: True
 
     RoundedButton:
         text: "Continue"
-        color: 0.48, 0.64, 0.87, 1
+        color: 0.20, 0.61, 0.40, 0.9
         size_hint: 0.8, 0.10
         pos_hint: {'center_x': 0.5, 'center_y': 0.08}
         font_size: 20
@@ -64,12 +94,13 @@ WindowManager:
         on_release:
             app.root.current = "choice"
             root.manager.transition.direction = "left"
+            root.remove_text()
 
 <choicemenu>
     name: "choice"
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
@@ -77,10 +108,11 @@ WindowManager:
         text: "How would you like to plan your walk"
         pos_hint: {'center_x': 0.5, 'center_y': 0.70}
         font_size: 20
-    Button:
+    RoundedButton:
         text: "Back"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0,}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.25, 'center_y': 0.05}
         font_size: 20
         bold: True
         on_release:
@@ -93,6 +125,9 @@ WindowManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         font_size: 20
         bold: True
+        color: 0.20, 0.61, 0.40, 0.9
+        background_normal: ''
+        background_color: 1, 1, 1, 1
         on_release:
             app.root.current = "decide"
             root.manager.transition.direction = "left"
@@ -102,6 +137,9 @@ WindowManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.35}
         font_size: 20
         bold: True
+        color: 0.20, 0.61, 0.40, 0.9
+        background_normal: ''
+        background_color: 1, 1, 1, 1
         on_release:
             app.root.current = "planner"
             root.manager.transition.direction = "left"
@@ -110,65 +148,38 @@ WindowManager:
     name: "decide"
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
     Label:
+
         text: "On what hour do you want to walk?"
         pos_hint: {'center_x': 0.5, 'center_y': 0.70}
         font_size: 20
-    Label:
-        text: ":"
-        pos_hint: {'center_x': 0.4, 'center_y': 0.40}
-        font_size: 25
-    Label:
-        text: ":"
-        pos_hint: {'center_x': 0.59, 'center_y': 0.40}
-        font_size: 25
-    Label:
-        text: "Hours"
-        pos_hint: {'center_x': 0.278, 'center_y': 0.45}
-        font_size: 15
-    Label:
-        text: "Min"
-        pos_hint: {'center_x': 0.46, 'center_y': 0.45}
-        font_size: 15
-    Label:
-        text: "Sec"
-        pos_hint: {'center_x': 0.65, 'center_y': 0.45}
-        font_size: 15
-    TextInput:
-        id: Hours
-        pos_hint: {'center_x': 0.3, 'center_y': 0.40}
-        size_hint: 0.15, 0.05
-        hint_text: 'Hours'
-        multiline: False
-    TextInput:
-        id: Minutes
-        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
-        size_hint: 0.15, 0.05
-        hint_text: 'Mins'
-        multiline: False
-    TextInput:
-        id: Seconds
-        pos_hint: {'center_x': 0.69, 'center_y': 0.40}
-        size_hint: 0.15, 0.05
-        hint_text: 'Sec'
-        multiline: False
     Button:
+        text: "Select time"
+        size_hint: 0.5, 0.08
+        pos_hint: {"center_x":0.5, "center_y": 0.55}
+        font_size: 20
+        bold: True
+        on_release: app.show_time_picker()
+
+    RoundedButton:
         text: "Back"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.25, 'center_y': 0.05}
         font_size: 20
         bold: True
         on_release:
             app.root.current = "choice"
             root.manager.transition.direction = "right"
-    Button:
+    RoundedButton:
         text: "Submit"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0.5}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.75, 'center_y': 0.05}
         font_size: 20
         bold: True
         on_press: root.verifyhour()
@@ -180,7 +191,7 @@ WindowManager:
     name: "planner"
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
@@ -208,20 +219,22 @@ WindowManager:
         size_hint: 0.7, 0.05
         hint_text: 'Kilometer for each walk'
         multiline: False
-    Button:
+    RoundedButton:
         text: "Back"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.25, 'center_y': 0.05}
         font_size: 20
         bold: True
         on_release:
             app.root.current = "choice"
             root.manager.transition.direction = "right"
 
-    Button:
+    RoundedButton:
         text: "Submit"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0.5}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.75, 'center_y': 0.05}
         font_size: 20
         bold: True
         on_press: root.verifyinfo()
@@ -230,19 +243,20 @@ WindowManager:
     name: "confirm"
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
     Label:
-        text: "Values succesfully inserted. . ."
+        text: "Calendar has been updated!"
         pos_hint: {'center_x': 0.5, 'center_y': 0.60}
         font_size: 20
 
-    Button:
+    RoundedButton:
         text: "Home"
-        size_hint: 0.5, 0.05
-        pos_hint: {"x":0.25, "y":0.10}
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.8, 0.10
+        pos_hint: {'center_x': 0.5, 'center_y': 0.08}
         font_size: 20
         bold: True
         on_release:
@@ -255,16 +269,111 @@ WindowManager:
     name: "tutorial"
     canvas:
         Color:
-            rgba: 0.48, 0.64, 0.87, 0.2
+            rgba: 0.20, 0.61, 0.40, 0.9
         Rectangle:
             size: self.size
             pos: self.pos
+    Label:
+        bold: True
+        text: "Options"
+        font_size: 25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+    Label:
+        id: confirm_options
+        bold: True
+        text: ""
+        font_size: 20
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+    Label:
+        text: "Walked kilometers (default 5)"
+        pos_hint: {'center_x': 0.4, 'center_y': 0.60}
+        font_size: 15
+    TextInput:
+        id: kilometers_default
+        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+        size_hint: 0.7, 0.05
+        hint_text: 'default 5'
+        multiline: False
+    Label:
+        text: "Max walks per insert (experimental version)"
+        pos_hint: {'center_x': 0.513, 'center_y': 0.45}
+        font_size: 15
+    TextInput:
+        id: wandelingen_max
+        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
+        size_hint: 0.7, 0.05
+        hint_text: 'default 3'
+        multiline: False
     Button:
-        text: "Home"
+        text: "Submit changes"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0.25, "y":0.25}
+        font_size: 20
+        bold: True
+        on_press: root.optionvars()
+    Button:
+        text: "Send Feedback"
+        size_hint: 0.5, 0.05
+        pos_hint: {"x":0.25, "y":0.15}
+        font_size: 20
+        bold: True
+        on_press: root.wipe_text_2()
+        on_release:
+            app.root.current = "feedback"
+            root.manager.transition.direction = "left"
+
+    RoundedButton:
+        text: "Back"
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.25, 'center_y': 0.05}
+        font_size: 20
+        bold: True
+        on_press: root.wipe_text_2()
+        on_release:
+            app.root.current = "Menu"
+            root.manager.transition.direction = "up"
+
+<userfeedback>
+    name: "feedback"
+    canvas:
+        Color:
+            rgba: 0.20, 0.61, 0.40, 0.9
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        bold: True
+        text: "Send feedback"
+        font_size: 25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+    Label:
+        id: confirm_feedback
+        bold: True
+        text: ""
+        font_size: 20
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+    TextInput:
+        id: feedback_text
+        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+        size_hint: 0.7, 0.30
+        hint_text: 'send your feedback here'
+        multiline: True
+    Button:
+        text: "Submit changes"
         size_hint: 0.5, 0.05
         pos_hint: {"x":0.25, "y":0.10}
         font_size: 20
         bold: True
+        on_press: root.sendfeedback()
+    RoundedButton:
+        text: "Back"
+        color: 0.20, 0.61, 0.40, 0.9
+        size_hint: 0.4, 0.05
+        pos_hint: {'center_x': 0.25, 'center_y': 0.05}
+        font_size: 20
+        bold: True
+        on_press: root.wipe_text()
         on_release:
-            app.root.current = "Menu"
-            root.manager.transition.direction = "up"
+            app.root.current = "tutorial"
+            root.manager.transition.direction = "right"

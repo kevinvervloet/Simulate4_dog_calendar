@@ -24,7 +24,6 @@ TODO
 #               IMPORTS               #
 import requests
 from geopy.geocoders import Nominatim
-from pprint import pprint
 from configurations import weatherAPI
 import datetime
 import get_calendar
@@ -39,7 +38,6 @@ def getweatherrandomly(wandelingen):  # function for option 2
     getLoc = loc.geocode("Antwerp")
     latitude = str(getLoc.latitude)
     longitude = str(getLoc.longitude)
-    city_name = "Antwerp"
 
     # API
     API_key = weatherAPI()
@@ -62,17 +60,19 @@ def getweatherrandomly(wandelingen):  # function for option 2
 
         if time_now <= times_from_api:  # don't include times that happend in the past
             if times_from_api <= str(tomorrow):
-                print(weather + " " + times_from_api)
+                # print(weather + " " + times_from_api)
                 lst.append(weather)
                 lst2.append(times_from_api)
 
-    lenght_time_list = len(lst2)  # get the lenght of the list
-    for i in range(int(wandelingen)):
-        random_planning = random.randrange(1, lenght_time_list)  # random number
-        select_weather = lst[random_planning]  # select a random time
-        plannedhour = lst2[random_planning]
+    length_time_list = len(lst2)                     # get the lenght of the list
+    for random_number in random.sample(range(1, int(length_time_list)), int(wandelingen)):
+
+        select_weather = lst[random_number]  # select a random time
+        plannedhour = lst2[random_number]
         if select_weather == "Rain":
-            pass
+            text = f'Weather for {plannedhour} - {select_weather}. Be sure to bring a raincoat!'
+            get_calendar.getcalendar(plannedhour, text)
+            break
         print(select_weather, plannedhour)
         plannedhour = plannedhour[11:29]
         text = f'Weather for {plannedhour} - {select_weather}. Perfect time for a walk with your dog - Sent from Dog ' \
@@ -96,7 +96,7 @@ def weatherhourly(plannedhour):  # function for option 2
     getLoc = loc.geocode("Antwerp")
     latitude = str(getLoc.latitude)
     longitude = str(getLoc.longitude)
-    city_name = "Antwerp"
+    # city_name = "Antwerp"
 
     # API
     API_key = weatherAPI()
@@ -124,5 +124,5 @@ def weatherhourly(plannedhour):  # function for option 2
                 break
 
 
-if __name__ == '__main__':  # run tests if called from command-line
-    getweatherrandomly()
+# if __name__ == '__main__':  # run tests if called from command-line
+#    getweatherrandomly()
