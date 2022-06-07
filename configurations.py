@@ -18,11 +18,6 @@ __status__ = "Development"
 
 
 #              MAIN CODE              #
-def pwd():
-    pwd_email = "kdgiot33!"
-    return pwd_email
-
-
 def dbconfig():
     databaseURL = "https://pet-friend-29364-default-rtdb.europe-west1.firebasedatabase.app/"
     return databaseURL
