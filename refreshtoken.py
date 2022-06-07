@@ -23,9 +23,16 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 #              VARIABLES              #
-SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.readonly',
-          'https://www.googleapis.com/auth/calendar.events', 'https://www.googleapis.com/auth/calendar.events.readonly']
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+#SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.readonly','https://www.googleapis.com/auth/calendar.events', 'https://www.googleapis.com/auth/calendar.events.readonly']
 #              MAIN CODE              #
+
+
+def logout():
+    try:
+        os.remove('Calendar/token.json')
+    except Exception:
+        pass
 
 
 def refresh():
@@ -45,5 +52,7 @@ def refresh():
         creds.refresh(Request())
     return creds
 
+
 if __name__ == '__main__':  # run tests if called from command-line
     refresh()
+
