@@ -26,19 +26,25 @@ This project was made as a final project for the Karel de Grote Hogeschool durin
 
 ## User guide
 In this section i will go over how a user can interact with this app.
+When starting up the app you will be allowed to do a couple of things:
+1) Login with your google account to connect to the google calendar API
+2) Change some settings & send user feedback
+3) Continue to the core app features
 
-First of all there is an option button on the home screen. if you click on this button you will be able to change some basic settings within the app.
+![image](https://user-images.githubusercontent.com/72076173/172568077-dd3a002d-6c79-4a64-97a0-f76a8a00a9f6.png)
 
-Users that want to use the dog calendar app will be able to use two main features. After you click passed the home screen, you will see two buttons:
- 1) "Plan your own walk". The main feature is to plan in a dog walk from the app, the app will check the weather for that time. you will get a notification when it's almost time for your dog walk. This is very helpful if you have multiple people in your household and they need to be aware to take their dog out from time to time.
+Next up you will reach a screen where you will decide what to do.
+ 1) "Plan your own walk". With this feature you can plan a walk at a specific time, you can select that time and insert the planning to your google calendar.
 
-![image](https://user-images.githubusercontent.com/72076173/163708148-8845d828-d72e-4631-a3d9-8f206d94b724.png)
+![image](https://user-images.githubusercontent.com/72076173/172569596-fe279818-63c3-44eb-97af-93f9a31faafa.png)
+![image](https://user-images.githubusercontent.com/72076173/172569470-d44bc484-a888-429f-a726-5d6e89894c43.png)
 
- 2) "let the app decide". The experimental feature: you can set how many walks you want to do this day & the amount of kilometers for each walk. the app will send the kilometers to the extra dog walk accessory & will plan in a few walks in your calendar
 
-![image](https://user-images.githubusercontent.com/72076173/163708019-75f0c1c8-fc6c-4ef2-b859-4d632397a4e4.png)
+ 3) "let the app decide". The experimental feature: you can set how many walks you want to do this day & the amount of kilometers for each walk. the app will send the kilometers to the extra dog walk accessory & will plan in a few walks in your calendar
 
-When you click one either one of these buttons the app will ask you to input some information. If that information is inserted correctly, the app will give you a callback message that the values are correct. After that you can check your calendar and see the reminder has been made one Google Calendars
+![image](https://user-images.githubusercontent.com/72076173/172571145-9f5eee8b-a031-4553-b01d-45576c3cbea0.png)
+
+After that you will get a confirmation screen that will tell you that your calendar is updated succesfully.
 
 ![image](https://user-images.githubusercontent.com/72076173/163708201-b635c392-52c5-449f-8937-46263643e6a1.png)
 ![image](https://user-images.githubusercontent.com/72076173/163708228-4b39bc3d-f008-4ccf-9593-732ac78a21df.png)
